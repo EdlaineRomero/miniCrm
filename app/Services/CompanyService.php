@@ -25,7 +25,8 @@ class CompanyService{
 	public function store(CompanyCreateRequest $request)
 	{
 		try{		    
-			$logo =$this->uploadImagem($request);
+
+			$logo =$this->uploadImagem($request);			
 			
 			$data=[
 				'name'=> $request->name,
@@ -34,9 +35,9 @@ class CompanyService{
 				'logo'=>$logo,
 			];
 			
-			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-        	$company = $this->repository->create($data);
+			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);	        	
+			
+			$company = $this->repository->create($data);
 
 			return [
 				'success'=> true,
@@ -55,28 +56,34 @@ class CompanyService{
 
 	}
 
-	public function uploadImagem(CompanyCreateRequest $request){
+	public function uploadImagem($request){
+			
+		$file=$request->file('logo');
+		$image = \Image::make($file);
 
-		$nameFile = null; 
-    
-        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {         
-        
-       		$name = uniqid(date('HisYmd')); 
-        
-        	$extension = $request->logo->extension(); 
-        
-        	$nameFile = "{$name}.{$extension}"; 
-        
-        	$upload = $request->logo->store('images');  
-        	    
-        	return $upload;
-		}
+		$image->resize(100,100,function($constraint){
+			$constraint->aspectRatio();
+		});
+
+		$nameFile = uniqid();
+
+   		$logo = pathinfo($nameFile,
+	    	PATHINFO_FILENAME).'.'.$file->getClientOriginalExtension();
+
+   		$image->save(public_path('storage/images/'.$logo));
+
+   		$imageUrl = $image->dirname.'/'.$image->basename;
+
+		return $image->basename;
+			
+       
 	}
 
 	public function update($request,$id){
 
 		try{
-			$logo =$this->uploadImagem($request);
+
+			$logo =$this->uploadImagem($request);			
 			
 			$data=[
 				'name'=> $request->name,
@@ -87,14 +94,14 @@ class CompanyService{
 			
 			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-        	$company = $this->repository->update($data,$id);
+    		$company = $this->repository->update($data,$id);
 
 			return [
 				'success'=> true,
 				'message'=> 'Company resgister',
 				'data'=> $company,
 			];
-
+			
 		}catch(\Exception $e){
 
 			return [
@@ -121,7 +128,7 @@ class CompanyService{
 
 			return [
 				'success'=> false,
-				'message'=> $e->getMessage(),
+				'message'=> 'Não foi possivel remover essa empresa, verifique se não existem funcionarios relacionados a ela',
 
 			];
 		}

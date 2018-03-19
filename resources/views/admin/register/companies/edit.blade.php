@@ -38,8 +38,9 @@
                     <input type="text" name="webSite" class="form-control" value="{{$company->webSite}}"
                            placeholder="web Site">                                     
                 </div>
-                <div class="col-xs-6">
-                  <label for="logoInputFile">Logo</label>
+                <div id="image" class="col-xs-6"> 
+                  {!! Html::image('storage/images/'.$company->logo)!!}                 
+                  <label for="logoInputFile"></label>                  
                   <input id="logo" name="logo" type="file" accept="image/*">
                 </div>
             </div> 

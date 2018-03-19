@@ -42,5 +42,9 @@ return [
     'requerid'                    => 'requerido',
     'firstName'                   => 'Nome',
     'lastName'                    => 'Sobrenome',
-    'phone'                       => 'Telefone',
+    'phone'                       => 'Telefone',    
+    'Company'                     => 'Empresa',
+    'Employees'                   => 'Funcionários',
+    'Employee'                    => 'Funcionário',
+    'Language'                    => 'Idioma'
 ];

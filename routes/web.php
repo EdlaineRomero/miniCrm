@@ -21,17 +21,26 @@ Route::group(['middleware' => ['auth'], 'namespace'=>'Admin'],function(){
 
 	Route::resource('company','CompaniesController');
 	Route::resource('employee','EmployeesController');
+
+	//rota para tradução
+	Route::get('/{locale}', function ($locale) {
+	
+		\Session::put('locale',$locale);
+			
+		$backUrl = redirect()->back()->getTargetUrl(); 
+		
+		return redirect()->to($backUrl);     
+
+	})->middleware('locale')->name('locale');
+ 
 });
 
-
-Auth::routes();
-
+//Rota Welcome 
 Route::get('/', 'Site\SiteController@index')->name('site.home');
 
 
- Route::get('{locale}', function ($locale) {	 
- 		    
- 		App::setLocale($locale);   
- 		return "reload";     
+ 
 
-})->name('locale');
+
+
+ 

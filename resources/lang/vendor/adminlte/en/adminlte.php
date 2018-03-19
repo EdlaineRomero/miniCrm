@@ -43,4 +43,8 @@ return [
     'firstName'                   => 'First name',
     'lastName'                    => 'Last name',
     'phone'                       => 'Phone',
+    'Company'                     => 'Company',
+    'Employees'                   => 'Employees',
+    'Employee'                    => 'Employee',
+    'Language'                    => 'Language'
 ];

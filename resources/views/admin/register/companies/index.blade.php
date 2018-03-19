@@ -69,8 +69,9 @@
             @foreach($companies as $company)
                 <tr>
                     <td>{{$company->id}}</td>
-                    <td>                        
-                         <img url="{{ public_path("storage/{$company->logo}") }}">
+                    <td class="pull-left image">
+                        {!! Html::image('storage/images/'.$company->logo)!!}
+                           
                     </td>
                     <td>{{$company->name}}</td>
                     <td>{{$company->email}}</td>
@@ -86,7 +87,7 @@
                             unselectable="on">    
                         <span class="fa fa-pencil"></span>    
                         </a>
-                        {!! Form::open(['route'=>['company.destroy',$company->id],'method' => 'DELETE','class'=>'btn  btn-default']) !!}
+                        {!! Form::open(['route'=>['company.destroy',$company->id],'method' => 'DELETE','class'=>'btn']) !!}
                         {!! Form::button('<span class="fa fa-trash-o"></span>',['type'=>'submit','class'=>'btn  btn-default'])!!}                      
                         {!! Form::close() !!} 
                         

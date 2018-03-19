@@ -30,7 +30,7 @@
                             unselectable="on">    
                         <span class="fa fa-pencil"></span>    
                     </a>
-                    {!! Form::open(['route'=>['employee.destroy',$employee->id],'method' => 'DELETE']) !!}
+                    {!! Form::open(['route'=>['employee.destroy',$employee->id],'method' => 'DELETE','class'=>'btn']) !!}
                     {!! Form::button('<span class="fa fa-trash-o"></span>',['type'=>'submit','class'=>'btn  btn-default'])!!}                      
                     {!! Form::close() !!} 
                 </td> 
