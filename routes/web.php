@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes();
+Route::get('/', 'Site\SiteController@index')->name('site.home');
 
 //verifica se usuario esta autenticado no sistema
 Route::group(['middleware' => ['auth'], 'namespace'=>'Admin'],function(){
@@ -21,26 +23,19 @@ Route::group(['middleware' => ['auth'], 'namespace'=>'Admin'],function(){
 
 	Route::resource('company','CompaniesController');
 	Route::resource('employee','EmployeesController');
-
-	//rota para tradução
-	Route::get('/{locale}', function ($locale) {
-	
-		\Session::put('locale',$locale);
-			
-		$backUrl = redirect()->back()->getTargetUrl(); 
-		
-		return redirect()->to($backUrl);     
-
-	})->middleware('locale')->name('locale');
- 
 });
+ 
+//Rata de tradução
+Route::get('/{locale}', function ($locale) {
+	
+	\Session::put('locale',$locale);
+		
+	$backUrl = redirect()->back()->getTargetUrl(); 
+	
+	return redirect()->to($backUrl);     
 
-//Rota Welcome 
-Route::get('/', 'Site\SiteController@index')->name('site.home');
-
+})->middleware('locale')->name('locale');
 
  
-
-
 
  

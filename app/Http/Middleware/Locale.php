@@ -10,6 +10,7 @@ use Config;
 class Locale
 {
     public function handle($request, Closure $next){
+    	$response=$next($request);
 
     	if(Session::has('locale')){
 
@@ -20,7 +21,7 @@ class Locale
     		App::setLocale(Config::get('app.fallback_lacale'));
 
     	}
-    	      	
-    	return $next($request);
+    	 
+    	return $response;
     }
 }

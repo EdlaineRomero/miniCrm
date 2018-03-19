@@ -4,6 +4,6 @@
     </a>
     <ul class="dropdown-menu">
       <li><a href="{{route('locale','en')}}"> English</a></li>
-      <li><a href="{{route('locale','pt')}}"> Portugues</a></li>
+      <li><a href="{{route('locale','pt-BR')}}"> Portugues</a></li>
   	</ul>
               
